@@ -1,0 +1,46 @@
+---
+permalink: /app/
+title: App
+---
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>GeoVisAR</title>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+  <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+
+    <a-assets>
+      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
+    </a-assets>
+
+    <!-- Basic circle. -->
+    <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
+      gps-entity-place="latitude: 47.76357729574218; longitude: 11.546259496798857;"></a-circle>
+
+
+    <!-- entitys -->
+    <!-- richtung user => rotation="0 180 0" -->
+    <a-anchor rotation="90 0 0">
+      <a-gltf-model src="#arrow" scale="120 120 120"
+        gps-entity-place="latitude: 47.76340488721125; longitude: 11.547512546708349;">
+        <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+      </a-gltf-model>
+    </a-anchor>
+
+    <!-- <a-entity gltf-model="./assets/arrow/arrow.gltf" rotation="0 180 0" scale="1 1 1"
+      gps-entity-place="latitude: 47.7634920645492; longitude: 11.547752532392202;" animation-mixer /> -->
+    <!-- camera -->
+    <!-- gps-camera="simulateLatitude: 47.76356921500949; simulateLongitude: 11.546625042771186; gpsMinDistance: 5; accelerationToMove: 1.0;" -->
+    <a-camera gps-camera="gpsMinDistance: 5; accelerationToMove: 1.0;" rotation-reader> </a-camera>
+  </a-scene>
+</body>
+
+</html>
