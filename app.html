@@ -17,6 +17,7 @@ title: App
 <body style="margin: 0; overflow: hidden;">
   <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
 
+    <!-- 3D (GLTF) models -->
     <a-assets>
       <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
     </a-assets>
@@ -27,7 +28,7 @@ title: App
 
 
     <!-- entitys -->
-    <!-- richtung user => rotation="0 180 0" -->
+    <!-- direction to user => rotation="0 180 0" -->
     <a-anchor rotation="90 0 0">
       <a-gltf-model src="#arrow" scale="120 120 120"
         gps-entity-place="latitude: 47.76340488721125; longitude: 11.547512546708349;">
@@ -37,6 +38,8 @@ title: App
 
     <!-- <a-entity gltf-model="./assets/arrow/arrow.gltf" rotation="0 180 0" scale="1 1 1"
       gps-entity-place="latitude: 47.7634920645492; longitude: 11.547752532392202;" animation-mixer /> -->
+
+
     <!-- camera -->
     <!-- gps-camera="simulateLatitude: 47.76356921500949; simulateLongitude: 11.546625042771186; gpsMinDistance: 5; accelerationToMove: 1.0;" -->
     <a-camera gps-camera="gpsMinDistance: 5; accelerationToMove: 1.0;" rotation-reader> </a-camera>
