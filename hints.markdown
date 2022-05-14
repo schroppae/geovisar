@@ -43,7 +43,7 @@ Hier finden sich Tipps zu den Markern wenn z.B. GPS mal nicht funktioniert.
     async function fetchGeodata() {
         // load JSON from file and return it
         try {
-            const response = await fetch("../assets/geodata.json");
+            const response = await fetch("assets/geodata.json");
             const jsonGeodata = await response.json();
             return jsonGeodata;
         } catch (error) {
