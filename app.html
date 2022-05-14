@@ -17,33 +17,80 @@ title: App
 <body style="margin: 0; overflow: hidden;">
   <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
 
-    <!-- 3D (GLTF) models -->
     <a-assets>
       <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
     </a-assets>
 
     <!-- Basic circle. -->
-    <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
-      gps-entity-place="latitude: 47.76357729574218; longitude: 11.546259496798857;"></a-circle>
+    <!-- <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
+      gps-entity-place="latitude: 47.76357729574218; longitude: 11.546259496798857;"></a-circle> -->
+
+    <!-- div will be replaced with marker html by javascript -->
+    <div id="#markers"></div>
+
+    <!-- Basic red circle. -->
+    <!-- vor Studienberatung -->
+    <!-- <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
+      gps-entity-place="latitude: 48.142905908543455; longitude: 11.555119896498041;"></a-circle> -->
 
 
     <!-- entitys -->
-    <!-- direction to user => rotation="0 180 0" -->
-    <a-anchor rotation="90 0 0">
-      <a-gltf-model src="#arrow" scale="120 120 120"
-        gps-entity-place="latitude: 47.76340488721125; longitude: 11.547512546708349;">
-        <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
-      </a-gltf-model>
-    </a-anchor>
+    <!-- richtung user => rotation="0 180 0" -->
+    <!-- <a-anchor rotation="90 0 0"> -->
+      <!-- FOM Straße Tram -->
+      <!-- <a-gltf-model src="#arrow" scale="120 120 120" gps-entity-place="latitude: 48.1424963; longitude: 11.5549581;"> -->
+        <!-- <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation> -->
+      <!-- </a-gltf-model> -->
+    <!-- </a-anchor> -->
+
+    <!-- <a-anchor rotation="90 0 0"> -->
+      <!-- FOM vor REWE -->
+      <!-- <a-gltf-model src="#arrow" scale="120 120 120" gps-entity-place="latitude: 48.1432082; longitude: 11.5553283;"> -->
+        <!-- <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation> -->
+      <!-- </a-gltf-model> -->
+    <!-- </a-anchor> -->
 
     <!-- <a-entity gltf-model="./assets/arrow/arrow.gltf" rotation="0 180 0" scale="1 1 1"
       gps-entity-place="latitude: 47.7634920645492; longitude: 11.547752532392202;" animation-mixer /> -->
-
-
     <!-- camera -->
     <!-- gps-camera="simulateLatitude: 47.76356921500949; simulateLongitude: 11.546625042771186; gpsMinDistance: 5; accelerationToMove: 1.0;" -->
     <a-camera gps-camera="gpsMinDistance: 5; accelerationToMove: 1.0;" rotation-reader> </a-camera>
   </a-scene>
+
+  <script>
+    async function fetchGeodata() {
+      // load JSON from file and return it
+      try {
+        const response = await fetch("../assets/geodata.json");
+        const jsonGeodata = await response.json();
+        return jsonGeodata;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    async function setMarkers() {
+      // set the marker HTML content
+      const geodata = await fetchGeodata();
+      var htmlString = "";
+      geodata.data.forEach(element => {
+        if (element.type == "circle") {
+          htmlString += `<a-circle id="${element.type}" color="${element.color}" radius="20" scale="${element.scale}" gps-entity-place="latitude: ${element.lat}; longitude: ${element.lon};"></a-circle>\n`;
+        } else if (element.type == "gltf-model") {
+          htmlString += `<a-gltf-model src="#arrow" scale="${element.scale}" gps-entity-place="latitude: ${element.lat}; longitude: ${element.lon};">
+        <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
+      </a-gltf-model>\n`;
+        }
+
+      });
+      document.getElementById("#markers").outerHTML = htmlString;
+    }
+
+    setMarkers();
+
+
+  </script>
 </body>
+
 
 </html>
