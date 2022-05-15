@@ -34,7 +34,7 @@ cursor: pointer;">AR-Anwendung starten</button></form>
 <div style="display: flex; justify-content: center; text-align: center;" id="qrcode"></div>
 <!-- <div id="qrcode" ></div> -->
 <script type="text/javascript">
-new QRCode(document.getElementById("qrcode"), "{{site.url}}");
+new QRCode(document.getElementById("qrcode"), "{{ site.url }}{{ site.baseurl }}");
 </script>
 <br>
 
