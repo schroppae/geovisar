@@ -4,6 +4,7 @@
             "id": "vorStudienBeratung",
             "text": "Hier befindet sich die Studienberatung.",
             "type": "circle",
+            "model": "",
             "color": "#CCC",
             "scale": "10 10 10",
             "lat": "48.142905908543455",
@@ -12,8 +13,9 @@
         {
             "id": "vorEingangHopfengasse",
             "text": "Hier befinden sich die \"A\"-Räume.",
-            "type": "circle",
-            "color": "#CCC",
+            "type": "box",
+            "model": "",
+            "color": "blue",
             "scale": "10 10 10",
             "lat": "48.14259092376406",
             "lon": "11.55512266551432"
@@ -23,6 +25,7 @@
             "text": "Hier fährt die Tram ab.",
             "type": "gltf-model",
             "model": "#arrow",
+            "color": "",
             "scale": "120 120 120",
             "lat": "48.14232982563709",
             "lon": "11.554764822085977"
@@ -32,6 +35,7 @@
             "text": "Hier befinden sich Aldi & REWE.",
             "type": "gltf-model",
             "model": "#arrow",
+            "color": "",
             "scale": "120 120 120",
             "lat": "48.14325221763899",
             "lon": "11.555439262204969"

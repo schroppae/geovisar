@@ -86,20 +86,27 @@ Hier finden sich Tipps zu den Markern wenn z.B. GPS mal nicht funktioniert.
         cellA = row.insertCell();
         cellB = row.insertCell();
         cellC = row.insertCell();
+        cellD = row.insertCell();
         cellA.innerHTML = "<b>Marker Text</b>";
         cellB.innerHTML = "<b>Marker Type</b>";
-        cellC.innerHTML = "<b>Link zur Position</b>";
+        cellC.innerHTML = "<b>Model</b>";
+        cellD.innerHTML = "<b>Center Map</b>";
         
         geodata.data.forEach(element => {
             row = table.insertRow();
             cellA = row.insertCell();
             cellB = row.insertCell();
             cellC = row.insertCell();
+            cellD = row.insertCell();
             cellA.innerHTML = element.text;
             cellB.innerHTML = element.type;
-            cellC.innerHTML = `<a href=https://www.openstreetmap.org/?mlat=${element.lat}&mlon=${element.lon}#map=17/${element.lat}/${element.lon}>zu OpenStreetMap</a>`;
-            // https://www.openstreetmap.org/?mlat=48.14282&mlon=11.55517#map=17/48.14282/11.55517
+            cellC.innerHTML = element.model;
+            cellD.innerHTML = `<button onclick="centerMapToMarker(${element.lat},${element.lon})">Center Map</button>`;
         });
+    }
+
+    function centerMapToMarker(lat, lon){
+        map.setView([lat, lon], 19); // ([lat, lng], zoom)
     }
 
     buildTable();

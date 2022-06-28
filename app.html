@@ -9,11 +9,31 @@ title: App
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>GeoVisAR</title>
+
+  <!-- Versions with location fix from Issue #406 -->
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script type="text/javascript" src="../assets/arjs/ar-threex-location-only.js"></script>
+  <script type="text/javascript" src="../assets/arjs/aframe-ar.js"></script>
+
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+  <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+    renderer="antialias: true; alpha: true">
+
+    <a-assets>
+      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
+    </a-assets>
+
+    <!-- gps-new-camera with location fix -->
+    <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+
+  </a-scene>
   <script>
     async function fetchGeodata() {
       // load JSON from file and return it
       try {
-        const response = await fetch("assets/geodata.json");
+        const response = await fetch("../assets/geodata.json");
         const jsonGeodata = await response.json();
         return jsonGeodata;
       } catch (error) {
@@ -24,73 +44,21 @@ title: App
     async function setMarkers() {
       // set the marker HTML content
       const geodata = await fetchGeodata();
-      var htmlString = "";
       geodata.data.forEach(element => {
-        if (element.type == "circle") {
-          htmlString += `<a-circle id="${element.type}" color="${element.color}" radius="20" scale="${element.scale}" gps-entity-place="latitude: ${element.lat}; longitude: ${element.lon};"></a-circle>\n`;
-        } else if (element.type == "gltf-model") {
-          htmlString += `<a-gltf-model src="#arrow" scale="${element.scale}" gps-entity-place="latitude: ${element.lat}; longitude: ${element.lon};">
-        <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation>
-      </a-gltf-model>\n`;
+        const marker = document.createElement("a-" + element.type);
+        if (element.type == "gltf-model") {
+          marker.setAttribute("src", element.model)
         }
-
+        marker.setAttribute("scale", element.scale);
+        marker.setAttribute("material", { color: element.color });
+        marker.setAttribute("gps-new-entity-place", {
+          latitude: element.lat,
+          longitude: element.lon,
+        })
+        document.querySelector("a-scene").appendChild(marker);
       });
-      document.getElementById("#markers").outerHTML = htmlString;
     }
-
     setMarkers();
-  </script>
-  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-</head>
-
-<body style="margin: 0; overflow: hidden;">
-  <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-
-    <a-assets>
-      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
-    </a-assets>
-
-    <!-- Basic circle. -->
-    <!-- <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
-      gps-entity-place="latitude: 47.76357729574218; longitude: 11.546259496798857;"></a-circle> -->
-
-    <!-- div will be replaced with marker html by javascript -->
-    <div id="#markers"></div>
-
-    <!-- Basic red circle. -->
-    <!-- vor Studienberatung -->
-    <!-- <a-circle id="circle" color="#CCC" radius="20" scale="10 10 10"
-      gps-entity-place="latitude: 48.142905908543455; longitude: 11.555119896498041;"></a-circle> -->
-
-
-    <!-- entitys -->
-    <!-- richtung user => rotation="0 180 0" -->
-    <!-- <a-anchor rotation="90 0 0"> -->
-    <!-- FOM Straße Tram -->
-    <!-- <a-gltf-model src="#arrow" scale="120 120 120" gps-entity-place="latitude: 48.1424963; longitude: 11.5549581;"> -->
-    <!-- <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation> -->
-    <!-- </a-gltf-model> -->
-    <!-- </a-anchor> -->
-
-    <!-- <a-anchor rotation="90 0 0"> -->
-    <!-- FOM vor REWE -->
-    <!-- <a-gltf-model src="#arrow" scale="120 120 120" gps-entity-place="latitude: 48.1432082; longitude: 11.5553283;"> -->
-    <!-- <a-animation attribute="rotation" dur="7000" to="0 360 0" easing="linear" repeat="indefinite"></a-animation> -->
-    <!-- </a-gltf-model> -->
-    <!-- </a-anchor> -->
-
-    <!-- <a-entity gltf-model="./assets/arrow/arrow.gltf" rotation="0 180 0" scale="1 1 1"
-      gps-entity-place="latitude: 47.7634920645492; longitude: 11.547752532392202;" animation-mixer /> -->
-    <!-- camera -->
-    <!-- gps-camera="simulateLatitude: 47.76356921500949; simulateLongitude: 11.546625042771186; gpsMinDistance: 5; accelerationToMove: 1.0;" -->
-    <a-camera gps-camera="gpsMinDistance: 5; accelerationToMove: 1.0;" rotation-reader> </a-camera>
-  </a-scene>
-
-  <script>
-
-
   </script>
 </body>
 
