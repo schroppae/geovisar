@@ -41,7 +41,17 @@ title: App
           latitude: element.lat,
           longitude: element.lon,
         })
+
+        console.log("Element Type: " + element.type);
+        console.log("Element Model: " + element.model);
+        console.log("Element Scale: " + element.scale);
+        console.log("Element Color: " + element.color);
+        console.log("Element Lat: " + element.lat);
+        console.log("Element Lon: " + element.lon);
+        
         document.querySelector("a-scene").appendChild(marker);
+        console.log("Element added");
+        console.log("---------------------------------");
       });
     }
     setMarkers();
