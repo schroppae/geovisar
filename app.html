@@ -35,7 +35,11 @@ title: App
         if (element.type == "gltf-model") {
           marker.setAttribute("src", element.model)
         }
-        marker.setAttribute("scale", element.scale);
+        marker.setAttribute("scale", {
+          x: element.scale.x,
+          y: element.scale.y,
+          z: element.scale.z,
+        });
         marker.setAttribute("material", { color: element.color });
         marker.setAttribute("gps-new-entity-place", {
           latitude: element.lat,
