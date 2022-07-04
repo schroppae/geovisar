@@ -5,7 +5,7 @@
             "text": "Hier befindet sich die Studienberatung.",
             "type": "circle",
             "model": "",
-            "color": "#CCC",
+            "color": "red",
             "scale": "10 10 10",
             "lat": 48.142905908543455,
             "lon": 11.555119896498041
