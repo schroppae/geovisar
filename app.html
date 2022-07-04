@@ -15,20 +15,6 @@ title: App
   <script type="text/javascript" src="../assets/arjs/ar-threex-location-only.js"></script>
   <script type="text/javascript" src="../assets/arjs/aframe-ar.js"></script>
 
-</head>
-
-<body style="margin: 0; overflow: hidden;">
-  <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
-    renderer="antialias: true; alpha: true">
-
-    <a-assets>
-      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
-    </a-assets>
-
-    <!-- gps-new-camera with location fix -->
-    <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
-
-  </a-scene>
   <script>
     async function fetchGeodata() {
       // load JSON from file and return it
@@ -40,7 +26,7 @@ title: App
         console.error(error);
       }
     }
-
+  
     async function setMarkers() {
       // set the marker HTML content
       const geodata = await fetchGeodata();
@@ -60,6 +46,20 @@ title: App
     }
     setMarkers();
   </script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+  <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;"
+    renderer="antialias: true; alpha: true">
+
+    <a-assets>
+      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
+    </a-assets>
+
+    <!-- gps-new-camera with location fix -->
+    <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+
+  </a-scene>
 </body>
 
 
