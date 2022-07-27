@@ -1,0 +1,60 @@
+{
+    "data": [
+        {
+            "id": "vorStudienBeratung",
+            "text": "Hier befindet sich die Studienberatung.",
+            "type": "sphere",
+            "model": "",
+            "color": "red",
+            "scale": {
+                "x":10,
+                "y":10,
+                "z":10
+            },
+            "lat": 48.142905908543455,
+            "lon": 11.555119896498041
+        },
+        {
+            "id": "vorEingangHopfengasse",
+            "text": "Hier befinden sich die \"A\"-Räume.",
+            "type": "box",
+            "model": "",
+            "color": "blue",
+            "scale": {
+                "x":10,
+                "y":10,
+                "z":10
+            },
+            "lat": 48.14259092376406,
+            "lon": 11.55512266551432
+        },
+        {
+            "id": "strasseTramHaltestelle",
+            "text": "Hier fährt die Tram ab.",
+            "type": "gltf-model",
+            "model": "#arrow",
+            "color": "",
+            "scale": {
+                "x":100,
+                "y":100,
+                "z":100
+            },
+            "lat": 48.14232982563709,
+            "lon": 11.554764822085977
+        },
+        {
+            "id": "vorREWE",
+            "text": "Hier befinden sich Aldi & REWE.",
+            "type": "cone",
+            "model": "",
+            "color": "green",
+            "scale": {
+                "x":10,
+                "y":10,
+                "z":10
+            },
+            "lat": 48.14325221763899,
+            "lon": 11.555439262204969
+        }
+    ]
+}

@@ -1,0 +1,98 @@
+---
+permalink: /app/
+title: App
+---
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>GeoVisAR</title>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- Versions with location fix from AR.js Issue #406 -->
+  <script type="text/javascript" src="../assets/arjs/ar-threex-location-only.js"></script>
+  <script type="text/javascript" src="../assets/arjs/aframe-ar.js"></script>
+</head>
+
+<body>
+  <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false"
+    renderer="antialias: true; alpha: true">
+    <a-assets>
+      <!-- add 3D GLTF models here -->
+      <a-asset-item id="arrow" src="../assets/arrow/arrow.gltf">
+    </a-assets>
+
+    <!-- gps-new-camera with location fix -->
+    <a-camera gps-new-camera="gpsMinDistance: 5"></a-camera>
+  </a-scene>
+</body>
+
+
+</html>
+
+<script>
+  window.onload = () => {
+
+    const getJSON = async (url) => {
+      // get JSON data from file
+      const response = await fetch(url);
+      return response.json();
+    };
+    function setMarkers(geodata) {
+      // set the marker HTML content
+      for (const element of geodata.data) {
+        const marker = document.createElement("a-" + element.type);
+
+        if (element.type == "gltf-model") {
+          // only for 3D models
+          marker.setAttribute("src", element.model)
+          marker.setAttribute("look-at", "[gps-new-camera]")
+        }
+        if (element.type == "cone") {
+          // only for type cone
+          marker.setAttribute("radius-bottom", 2)
+          marker.setAttribute("radius-top", 0)
+          marker.setAttribute("height", 5)
+        }
+        marker.setAttribute("scale", {
+          x: element.scale.x,
+          y: element.scale.y,
+          z: element.scale.z,
+        });
+
+        marker.setAttribute("material", { color: element.color });
+        // gps-new-entity-place with location fix
+        marker.setAttribute("gps-new-entity-place", {
+          latitude: element.lat,
+          longitude: element.lon,
+        })
+        // some logging to browser console
+        console.log("Element Type: " + element.type);
+        console.log("Element Type: " + element.text);
+        console.log("Element Model: " + element.model);
+        console.log("Element Scale X: " + element.scale.x);
+        console.log("Element Scale Y: " + element.scale.y);
+        console.log("Element Scale Z: " + element.scale.z);
+        console.log("Element Color: " + element.color);
+        console.log("Element Lat: " + element.lat);
+        console.log("Element Lon: " + element.lon);
+
+        document.querySelector("a-scene").appendChild(marker);
+        console.log("Element added");
+        console.log("---------------------------------");
+      };
+
+    };
+
+
+
+
+    console.log("Fetching data...");
+    getJSON("../assets/geodata.json").then((data) => setMarkers(data));
+
+
+  };
+
+
+</script>
