@@ -11,6 +11,11 @@ Die Nutzerinnen und Nutzer müssen dann keine eigene App herunterladen sondern b
 GeoVisAR ist im Rahmen eines Studierendenprojekts an der FOM Hochschule für Oekonomie & Management Hochschulzentrum München entstanden.
 
 Für das sichere und kostenlose Hosting der Websiten wird [GitHub Pages](https://pages.github.com/) verwendet.
+
+## Beispiel
+
+Dieses Repository "geovisar" dient zugleich auch als Beispiel-Projekt und die zugehörige Webseite kann über **[schroppae.github.io/geovisar](https://schroppae.github.io/geovisar)** abgerufen werden.
+
 ## Bereitstellung eigener Anwendungen
 
 1. Fork des Repositorys in den eigenen GitHub Account (Button rechts oben)
